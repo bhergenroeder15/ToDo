@@ -5,25 +5,39 @@ export default function AddTask(){
     const [form, updateForm] = useState({
         taskName: '',
         dueDate: '',
+        notes: '',
         priority: false,
     })
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
-        console.log(e.target.id)
-        if (e.target.id === 'priority'){
-            updateForm({
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>):void => {
+        updateForm({
+            ...form,
+            [e.target.id]: e.target.value,
+        })
+        
+    }
+    const handleCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        updateForm({
                 ...form,
                 [e.target.id]: e.target.checked,
             })
-        } else {
-            updateForm({
-                ...form,
-                [e.target.id]: e.target.value,
-            })
-        }
     }
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        console.log(form)
+    const handleSubmit = () => {
+        fetch('/api/addTask', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                form
+            })
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log('Fetch Response -->', res)
+        })
+        .catch((err) => {
+            console.log('Error in adding task:', err)
+        })
     }
     return(
         <>
@@ -44,8 +58,12 @@ export default function AddTask(){
                             <input type="datetime-local" id="dueDate" className="form-control" onChange={handleChange}/>
                             <label className="form-label" htmlFor="dueDate">Due Date/Time</label>
                         </div>
+                        <div className="form-outline mb-4">
+                            <textarea id="notes" rows={5} className="form-control" onChange={handleChange} />
+                            <label className="form-label" htmlFor="notes">Notes</label>
+                        </div>
                         <div className="checkbox">
-                            <label><input type="checkbox" id="priority" onChange={handleChange}/>Mark as High Priority</label>
+                            <label><input type="checkbox" id="priority" onChange={handleCheck}/>Mark as High Priority</label>
                         </div>
                         <div className="modal-footer">
                             <button type="submit" className="btn btn-primary">Add</button>

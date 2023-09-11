@@ -6,6 +6,7 @@ import path from 'path';
 
 import { GlobalErrorType } from './types.js';
 
+import { taskController } from './controllers/taskController.js';
 
 dotenv.config();
 declare let process: {
@@ -30,6 +31,14 @@ mongoose.connection.once('open', () => {
 
 const router: Router = express.Router();
 app.use('/api', router);
+
+router.post('/addTask', taskController.addTask, (req: Request, res: Response) => {
+  res.status(200).json(res.locals)
+})
+
+router.get('/getTasks', taskController.getTasks, (req: Request, res: Response) => {
+  res.status(200).json(res.locals)
+})
 
 app.get('/', (req: Request, res: Response) => {
   res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
