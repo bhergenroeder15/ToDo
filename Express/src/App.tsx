@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import AddTask from "./components/AddTask.tsx"
+import TaskList from "./components/TaskList.tsx";
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
         <button type="button" className="btn btn-info" onClick={() => {setCompletedSelector(false)}}>Not Completed</button>
         <button type="button" className="btn btn-success" onClick={() => {setCompletedSelector(true)}}>Completed</button>
       </div>
+      {completedSelector ? <TaskList list={closedTasks}/> : <TaskList list={openTasks}/>}
     </div>
   )
 }
