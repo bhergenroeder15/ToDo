@@ -1,5 +1,5 @@
 export type Task = {
-    _id: string
+    _id: string;
     taskName: string;
     dueDate: string;
     notes: string;
@@ -8,4 +8,13 @@ export type Task = {
 }
 export type TaskListProps = {
     list: Task[]
+}
+
+export type TaskModal = {
+    _id: string;
+    taskName: string;
+    dueDate: string;
+    notes: string;
+    priority: boolean;
+    edit: boolean;
 }

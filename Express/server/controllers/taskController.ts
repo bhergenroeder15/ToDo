@@ -15,6 +15,7 @@ export const taskController = {
     },
     addTask: async (req: Request, res: Response, next: NextFunction) => {
         try {
+            console.log(req.params, req.body)
             const { taskName, dueDate, notes, priority } = req.body.form;
             const task = await Task.create({taskName, dueDate, notes, priority});
             res.locals.task = task;
@@ -22,5 +23,17 @@ export const taskController = {
         } catch (err) {
             return next({log: 'Error in taskController addTask middleware.', status: 500, message: err})
         }
-    }
+    },
+    editTask: async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            console.log(req.params, req.body)
+            const { id } = req.params;
+            const { taskName, dueDate, notes, priority } = req.body.form;
+            const task = await Task.findByIdAndUpdate( id, {taskName, dueDate, notes, priority});
+            res.locals.task = task;
+            return next()
+        } catch (err) {
+            return next({log: 'Error in taskController editTask middleware.', status: 500, message: err})
+        }
+    },
 }

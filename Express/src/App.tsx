@@ -28,12 +28,12 @@ function App() {
         <h3>Keeping everything organized!</h3>
 
       </div>
-      {<AddTask/>}
+      <AddTask _id="" taskName="" dueDate="" notes="" priority={false} edit={false}/>
       <div className="btn-group btn-group-lg">
         <button type="button" className="btn btn-info" onClick={() => {setCompletedSelector(false)}}>Not Completed</button>
         <button type="button" className="btn btn-success" onClick={() => {setCompletedSelector(true)}}>Completed</button>
       </div>
-      {completedSelector ? <TaskList list={closedTasks}/> : <TaskList list={openTasks}/>}
+      <TaskList list={completedSelector ? closedTasks : openTasks}/>
     </div>
   )
 }

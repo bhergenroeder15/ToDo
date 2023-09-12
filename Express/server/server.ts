@@ -40,6 +40,10 @@ router.get('/getTasks', taskController.getTasks, (req: Request, res: Response) =
   res.status(200).json(res.locals)
 })
 
+router.put('/editTask/:id', taskController.editTask, (req: Request, res: Response) => {
+  res.status(200).json(res.locals)
+})
+
 app.get('/', (req: Request, res: Response) => {
   res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
