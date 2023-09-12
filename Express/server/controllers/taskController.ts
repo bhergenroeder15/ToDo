@@ -36,4 +36,34 @@ export const taskController = {
             return next({log: 'Error in taskController editTask middleware.', status: 500, message: err})
         }
     },
+    completeTask : async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const { id } = req.params;
+            const task = await Task.findByIdAndUpdate( id, {completed: true});
+            res.locals.task = task;
+            return next()
+        } catch (err) {
+            return next({log: 'Error in taskController editTask middleware.', status: 500, message: err})
+        }
+    },
+    reopenTask: async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const { id } = req.params;
+            const task = await Task.findByIdAndUpdate( id, {completed: false});
+            res.locals.task = task;
+            return next()
+        } catch (err) {
+            return next({log: 'Error in taskController editTask middleware.', status: 500, message: err})
+        }
+    },
+    deleteTask: async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const { id } = req.params;
+            const task = await Task.findByIdAndDelete(id);
+            res.locals.task = task;
+            return next()
+        } catch (err) {
+            return next({log: 'Error in taskController editTask middleware.', status: 500, message: err})
+        }
+    },
 }

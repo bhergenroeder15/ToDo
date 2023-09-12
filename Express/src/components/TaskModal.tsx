@@ -1,7 +1,7 @@
 import {useState} from 'react';
-import { TaskModal } from '../types.js';
+import { TaskModalProps } from '../types.js';
 
-export default function AddTask(props: TaskModal){
+export default function TaskModal(props: TaskModalProps){
     
     const [form, updateForm] = useState({
         taskName: props.taskName,
@@ -10,7 +10,6 @@ export default function AddTask(props: TaskModal){
         priority: props.priority,
     })
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>):void => {
-        console.log(form)
         updateForm({
             ...form,
             [e.target.id]: e.target.value,
@@ -56,7 +55,7 @@ export default function AddTask(props: TaskModal){
                 console.log('Fetch Response -->', res)
             })
             .catch((err) => {
-                console.log('Error in adding task:', err)
+                console.log('Error in editing task:', err)
             })
         }
     }

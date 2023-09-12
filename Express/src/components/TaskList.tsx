@@ -1,6 +1,9 @@
 import { ReactNode } from "react";
 import { Task, TaskListProps } from "../types.js";
-import AddTask from "./AddTask.js";
+import TaskModal from "./TaskModal.js";
+import DeleteModal from "./DeleteModal.js";
+import CompleteModal from "./CompleteModal.js";
+import ReopenModal from "./ReopenModal.js";
 export default function TaskList(props : TaskListProps){
     return (
         <ul className="list-group">
@@ -18,10 +21,14 @@ export default function TaskList(props : TaskListProps){
                         </div>
                     </div>
                     <div className="taskRight">
-                        <AddTask _id={task._id} taskName={task.taskName} dueDate={task.dueDate} notes={task.notes} priority={task.priority} edit={true}/>
+                        <div className="taskButtons">
+                            {props.open ? <CompleteModal _id={task._id}/> : <ReopenModal _id={task._id}/>}
+                            <TaskModal _id={task._id} taskName={task.taskName} dueDate={task.dueDate} notes={task.notes} priority={task.priority} edit={true}/>
+                            <DeleteModal _id={task._id}/>
+                        </div>
                         <div>
                             {Date.parse(task.dueDate) < Date.now() ? <p><strong>OVERDUE</strong></p> : null}
-                            {task.priority ? <p><strong>!!!</strong></p> : null}
+                            {task.priority ? <p><strong>High Priority!!!</strong></p> : null}
                         </div>
                     </div>
                 </li>

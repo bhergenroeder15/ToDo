@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import AddTask from "./components/AddTask.tsx"
+import TaskModal from "./components/TaskModal.tsx"
 import TaskList from "./components/TaskList.tsx";
 
 function App() {
@@ -28,12 +28,12 @@ function App() {
         <h3>Keeping everything organized!</h3>
 
       </div>
-      <AddTask _id="" taskName="" dueDate="" notes="" priority={false} edit={false}/>
+      <TaskModal _id="" taskName="" dueDate="" notes="" priority={false} edit={false}/>
       <div className="btn-group btn-group-lg">
         <button type="button" className="btn btn-info" onClick={() => {setCompletedSelector(false)}}>Not Completed</button>
         <button type="button" className="btn btn-success" onClick={() => {setCompletedSelector(true)}}>Completed</button>
       </div>
-      <TaskList list={completedSelector ? closedTasks : openTasks}/>
+      <TaskList list={completedSelector ? closedTasks : openTasks} open={!completedSelector}/>
     </div>
   )
 }
