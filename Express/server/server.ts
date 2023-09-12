@@ -40,6 +40,18 @@ router.get('/getTasks', taskController.getTasks, (req: Request, res: Response) =
   res.status(200).json(res.locals)
 })
 
+router.put('/editTask/:id', taskController.editTask, (req: Request, res: Response) => {
+  res.status(200).json(res.locals)
+})
+router.put('/completeTask/:id', taskController.completeTask, (req: Request, res: Response) => {
+  res.status(200).json(res.locals)
+})
+router.put('/reopenTask/:id', taskController.reopenTask, (req: Request, res: Response) => {
+  res.status(200).json(res.locals)
+})
+router.delete('/deleteTask/:id', taskController.deleteTask, (req: Request, res: Response) => {
+  res.status(200).json(res.locals)
+})
 app.get('/', (req: Request, res: Response) => {
   res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
